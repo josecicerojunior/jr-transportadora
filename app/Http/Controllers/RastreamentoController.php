@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Frete;
 use Illuminate\Http\Request;
 
 class RastreamentoController extends Controller
@@ -11,6 +12,12 @@ class RastreamentoController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('frete.rastreamento');
+        $frete = Frete::where('codigo_rastreio','teste123')->first();
+        // $frete = Frete::get();
+        // dd($frete);
+
+        return view('frete.rastreamento', [
+            'frete' => $frete
+        ]);
     }
 }
