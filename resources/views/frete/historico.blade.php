@@ -5,7 +5,7 @@
             Histórico de encomendas
         </h1>
         <p class="mt-4 text-lg">
-            Cliente: João da Silva
+            Cliente: {{ $cliente->nome }}
         </p>
     </div>
 
@@ -33,24 +33,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="transition-colors border-b hover:bg-gray-50">
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="#" class="underline">
-                            ABC123456
-                        </a>
-                    </td>
-                    <td class="px-6 py-4">
-                        São Paulo
-                    </td>
-                    <td class="px-6 py-4">
-                        Rio de Janeiro
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 py-1 text-white bg-green-500 rounded-full">
-                            Entregue
-                        </span>
-                    </td>
-                </tr>
+               @foreach ( $cliente->enviados as $frete )
+               <tr class="transition-colors border-b hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <a href="{{route('frete.rastreamento', ['codigo_rastreio'=>$frete->codigo_rastreio])}}" class="underline">
+                        {{ $frete->codigo_rastreio }}
+                    </a>
+                </td>
+                <td class="px-6 py-4">
+                    {{ $frete->origem }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ $frete->destino }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 py-1 rounded-full {{ $frete->status->pegarCorEtiqueta() }}">
+                        {{ $frete->status }}
+                    </span>
+                </td>
+            </tr>
+               @endforeach
             </tbody>
         </table>
     </div>
@@ -92,8 +94,8 @@
                         Curitiba
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 py-1 text-white bg-blue-500 rounded-full">
-                            Enviado
+                        <span class="px-2 py-1 rounded-full {{ $frete->status->pegarCorEtiqueta() }}">
+                            {{ $frete->status }}
                         </span>
                     </td>
                 </tr>

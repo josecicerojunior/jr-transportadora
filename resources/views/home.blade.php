@@ -20,7 +20,7 @@
                     </h2>
                     <form action="{{route('frete.historico')  }}" method="GET">
                         <div class="relative w-full max-w-md">
-                            <input type="tel" name="telefone" placeholder="Número de telefone" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" oninput="aplicarMascaraTelefone(this)" maxlength="15">
+                            <input type="tel" name="telefone" oninput="aplicarMascaraTelefone(this)" placeholder="Número de telefone" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" oninput="aplicarMascaraTelefone(this)" maxlength="15">
                             <button type="submit" class="absolute inset-y-0 right-0 px-4 py-2 text-white bg-indigo-500 rounded-r-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">Consultar</button>
                         </div>
                     </form>
@@ -31,5 +31,22 @@
         <div class="flex items-center justify-center order-2 bg-gray-100 md:order-none">
             <img src="/entrega.webp" alt="Placeholder" class="object-cover w-full h-full">
         </div>
-
+        <script>
+            aplicarMascaraTelefone = function (input) {
+                let valor = input.value;
+                valor = valor.replace(/\D/g, "");
+    
+                if (valor.length > 0) {
+                    valor = "(" + valor;
+                }
+                if (valor.length > 3) {
+                    valor = valor.slice(0, 3) + ") " + valor.slice(3);
+                }
+                if (valor.length > 10) {
+                    valor = valor.slice(0, 10) + "-" + valor.slice(10);
+                }
+    
+                input.value = valor.slice(0, 15);
+            }
+        </script>
     </x-layout>
