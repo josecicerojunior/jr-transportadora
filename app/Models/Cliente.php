@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cliente extends Model
 {
+    protected $fillable = ['nome','telefone'];
     
     public function enviados(): HasMany
     {
